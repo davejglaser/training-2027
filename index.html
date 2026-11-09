@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Training">
+<meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon.png">
+<title>Training 2027</title>
+<style>
+:root{--bg:#F2F2F7;--card:#FFFFFF;--card2:#F2F2F7;--text:#000;--sec:rgba(60,60,67,.6);--ter:rgba(60,60,67,.3);--sep:rgba(60,60,67,.16);--fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.2);--tint:#007AFF;--green:#34C759;--red:#FF3B30;--orange:#FF9500;--indigo:#5856D6;--cyan:#32ADE6;--pink:#FF2D55;--purple:#AF52DE;--teal:#30B0C7;--brown:#A2845E;--blue:#007AFF;--bar:rgba(249,249,249,.82);--shadow:0 1px 2px rgba(0,0,0,.06);--ring1:#FF2D55;--ring2:#30D158;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#000;--card:#1C1C1E;--card2:#2C2C2E;--text:#fff;--sec:rgba(235,235,245,.6);--ter:rgba(235,235,245,.3);--sep:rgba(84,84,88,.55);--fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.36);--tint:#0A84FF;--green:#30D158;--red:#FF453A;--orange:#FF9F0A;--indigo:#5E5CE6;--cyan:#64D2FF;--pink:#FF375F;--purple:#BF5AF2;--teal:#40CBE0;--brown:#AC8E68;--blue:#0A84FF;--bar:rgba(22,22,24,.78);--shadow:none;--ring1:#FF375F;--ring2:#30D158}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;font-size:17px;line-height:1.3;-webkit-font-smoothing:antialiased;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,textarea,select{font:inherit;color:var(--text)}
+.wrap{max-width:640px;margin:0 auto;padding:calc(8px + env(safe-area-inset-top)) 16px 24px}
+.round{font-family:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.topbar{display:flex;align-items:center;justify-content:space-between;height:44px}
+.iconbtn{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--tint)}
+.iconbtn:active{background:var(--fill)}
+.iconbtn svg{width:22px;height:22px}
+.pillbtn{height:32px;padding:0 14px;border-radius:16px;background:var(--fill);color:var(--tint);font-size:15px;font-weight:600}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--sec);margin:6px 0 2px}
+h1{font-size:34px;line-height:1.12;font-weight:700;letter-spacing:-.02em;margin:0 0 4px}
+h2.sect{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:26px 4px 8px;display:flex;justify-content:space-between;align-items:baseline}
+h2.sect small{font-size:15px;font-weight:400;color:var(--sec)}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--shadow)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--c,var(--red)) 15%,transparent);color:var(--c,var(--red));margin-top:6px}
+.badge svg{width:14px;height:14px}
+.ringcard{display:flex;align-items:center;gap:20px;padding:18px 20px;margin-top:16px}
+.ringcard svg.rings{width:116px;height:116px;flex:none}
+.ringstats{display:grid;gap:12px;min-width:0}
+.ringstats .lbl{font-size:15px;font-weight:600}
+.ringstats .num{font-size:30px;font-weight:700;letter-spacing:-.01em;line-height:1.05}
+.ringstats .num small{font-size:17px;font-weight:600;color:var(--sec);margin-left:2px}
+.ring-arc{transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
+.note{padding:14px 16px;margin-top:12px;font-size:15px;color:var(--sec);white-space:pre-wrap}
+.list{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.row{display:flex;align-items:center;gap:12px;padding:11px 14px 11px 14px;min-height:60px;position:relative;cursor:pointer}
+.row+.row::before{content:"";position:absolute;top:0;left:62px;right:0;height:.5px;background:var(--sep)}
+.row:active{background:var(--fill)}
+.tile{width:36px;height:36px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--c);color:#fff}
+.tile svg{width:20px;height:20px}
+.rtext{flex:1;min-width:0}
+.rtitle{font-size:17px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rsub{font-size:14px;color:var(--sec);margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center}
+.rsub .dot::before{content:"·";margin-right:6px}
+.chip{font-size:12px;font-weight:600;padding:1px 7px;border-radius:6px;background:var(--fill);color:var(--sec)}
+.chip.partial{background:color-mix(in srgb,var(--orange) 16%,transparent);color:var(--orange)}
+.chip.skipped{background:var(--fill);color:var(--sec)}
+.row.done .rtitle{color:var(--sec)}
+.row.skipped .rtitle{color:var(--sec);text-decoration:line-through}
+.row.skipped .tile{opacity:.4}
+.check{width:44px;height:44px;margin:-6px -8px -6px 0;flex:none;display:flex;align-items:center;justify-content:center}
+.check i{width:28px;height:28px;border-radius:50%;border:2px solid var(--ter);display:flex;align-items:center;justify-content:center;transition:transform .15s,background .2s,border-color .2s}
+.check:active i{transform:scale(.88)}
+.check svg{width:16px;height:16px;color:#fff;opacity:0}
+.check.done i{background:var(--green);border-color:var(--green)}
+.check.done svg{opacity:1}
+.check.partial i{border-color:var(--orange);background:linear-gradient(90deg,var(--orange) 50%,transparent 50%)}
+.check.skipped i{border-color:var(--ter);background:var(--fill)}
+.check.skipped i::after{content:"";width:12px;height:2px;border-radius:1px;background:var(--sec)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.actbtn{display:flex;align-items:center;justify-content:center;gap:6px;height:48px;border-radius:14px;background:var(--card);color:var(--tint);font-weight:600;font-size:16px;box-shadow:var(--shadow)}
+.actbtn svg{width:18px;height:18px}
+.actbtn:active{opacity:.6}
+.empty{padding:36px 20px;text-align:center;color:var(--sec)}
+.empty svg{width:40px;height:40px;color:var(--ter);margin-bottom:8px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.stat{padding:14px 16px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between}
+.stat .lbl{font-size:15px;font-weight:600;display:flex;align-items:center;gap:6px}
+.stat .lbl svg{width:16px;height:16px}
+.stat .big{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.stat .big small{font-size:16px;font-weight:600;color:var(--sec);margin-left:3px}
+.stat .sub{font-size:13px;color:var(--sec);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl{padding:16px}
+.tlbar{position:relative;display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px;margin:22px 0 8px}
+.tlbar span{display:block;height:100%;cursor:pointer}
+.tlwrap{position:relative}
+.tlnow{position:absolute;top:12px;width:3px;height:34px;margin-left:-1.5px;border-radius:2px;background:var(--text)}
+.tlflag{position:absolute;top:0;margin-left:-8px;color:var(--red)}
+.tlflag svg{width:16px;height:16px}
+.tlaxis{display:flex;justify-content:space-between;font-size:12px;color:var(--sec)}
+.legend{display:flex;flex-direction:column;gap:6px;margin-top:12px;font-size:13px;color:var(--sec)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;background:var(--c)}
+.chartcard{padding:16px 16px 12px}
+.chartcard svg{width:100%;height:150px;display:block}
+.chartkey{display:flex;gap:14px;font-size:13px;color:var(--sec);margin-bottom:8px}
+.chartkey i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:0}
+.wkrow{display:flex;align-items:center;gap:12px;padding:12px 16px;position:relative;cursor:pointer;min-height:54px}
+.wkrow+.wkrow::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
+.wkrow:active{background:var(--fill)}
+.wkrow .wl{flex:1;min-width:0}
+.wkrow .wt{font-size:16px;font-weight:500;display:flex;align-items:center;gap:6px}
+.wkrow .wt svg{width:14px;height:14px;color:var(--red)}
+.wkrow .wd{font-size:13px;color:var(--sec)}
+.mini{width:64px;height:6px;border-radius:3px;background:var(--fill);overflow:hidden}
+.mini b{display:block;height:100%;background:var(--green);border-radius:3px}
+.wkrow .wc{font-size:14px;color:var(--sec);min-width:38px;text-align:right}
+.nowtag{font-size:11px;font-weight:700;color:var(--tint);text-transform:uppercase;letter-spacing:.03em}
+.ghdr{font-size:13px;color:var(--sec);text-transform:uppercase;letter-spacing:.02em;margin:22px 16px 6px;display:flex;align-items:center;gap:7px}
+.ghdr i{width:9px;height:9px;border-radius:3px;background:var(--c)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep);display:flex;justify-content:center;padding:6px 0 calc(6px + env(safe-area-inset-bottom));z-index:10}
+.tabbar button{flex:0 1 160px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:500;color:var(--sec);padding:4px 0}
+.tabbar button svg{width:26px;height:26px}
+.tabbar button.on{color:var(--tint)}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:20;display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
+.sheet{background:var(--bg);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:14px 14px 0 0;padding:0 16px calc(24px + env(safe-area-inset-bottom));animation:up .32s cubic-bezier(.2,.9,.25,1)}
+@media(min-width:700px){.scrim{align-items:center}.sheet{border-radius:14px;max-height:86vh}}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+@keyframes fade{from{opacity:0}}
+.grab{width:36px;height:5px;border-radius:3px;background:var(--fill2);margin:6px auto 0}
+.shdr{display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;background:var(--bg);z-index:1}
+.shdr h3{margin:0;font-size:17px;font-weight:600}
+.shdr button{color:var(--tint);font-size:17px;min-width:64px;height:44px}
+.shdr button.r{font-weight:600;text-align:right}
+.shdr button.l{text-align:left}
+.group{background:var(--card);border-radius:12px;overflow:hidden;margin:0 0 20px}
+.glabel{font-size:13px;color:var(--sec);text-transform:uppercase;letter-spacing:.02em;margin:0 16px 6px}
+.field{display:flex;align-items:center;gap:12px;padding:0 16px;min-height:46px;position:relative}
+.field+.field::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
+.field label{flex:none;min-width:96px}
+.field input,.field select{flex:1;min-width:0;border:0;background:transparent;text-align:right;outline:none;height:44px;font-size:17px;color:var(--sec)}
+.field input:focus{color:var(--text)}
+.field textarea{flex:1;border:0;background:transparent;outline:none;resize:none;padding:12px 0;min-height:76px;font-size:17px}
+.field.col{display:block;padding:12px 16px}
+.field.col label{display:block;font-size:13px;color:var(--sec);margin-bottom:8px}
+.seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;gap:2px}
+.seg button{flex:1;height:32px;border-radius:7px;font-size:14px;font-weight:500;white-space:nowrap}
+.seg button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.12);font-weight:600}
+@media (prefers-color-scheme:dark){.seg button.on{background:#636366}}
+.types{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.types::-webkit-scrollbar{display:none}
+.types button{flex:none;display:flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 6px;border-radius:17px;background:var(--fill);font-size:14px;font-weight:500}
+.types button .tile{width:24px;height:24px;border-radius:7px}
+.types button .tile svg{width:14px;height:14px}
+.types button.on{background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);font-weight:600}
+.btnrow{display:block;width:100%;text-align:left;padding:0 16px;height:46px;font-size:17px;color:var(--tint);position:relative}
+.btnrow+.btnrow::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
+.btnrow.danger{color:var(--red)}
+.btnrow:active{background:var(--fill)}
+.err{color:var(--red);font-size:13px;margin:-12px 16px 16px}
+.foot{font-size:13px;color:var(--sec);margin:-12px 16px 20px;line-height:1.4}
+.banner{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sec);background:var(--fill);border-radius:10px;padding:8px 12px;margin-top:4px}
+.signin{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.signin .gbtn{margin-top:18px;height:50px;padding:0 26px;border-radius:14px;background:var(--text);color:var(--bg);font-weight:600;display:flex;align-items:center;gap:10px}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--card2);color:var(--text);padding:10px 16px;border-radius:20px;font-size:14px;font-weight:500;box-shadow:0 4px 18px rgba(0,0,0,.18);z-index:30;animation:fade .2s}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<main class="wrap" id="main"></main>
+<nav class="tabbar" id="tabbar" hidden>
+  <button data-act="tab" data-tab="week" id="t-week"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14.5l2.2 2.2L15.5 13"/></svg>This week</button>
+  <button data-act="tab" data-tab="progress" id="t-progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V12M10 20V7M15 20v-9M20 20V4"/></svg>Progress</button>
+</nav>
+<script>
+/* ===== Setup: paste the firebaseConfig object from Firebase here. Leave null for preview mode. ===== */
+const FIREBASE_CONFIG = null;
+/* ================================================================================================= */
+
+const SEED = {"version":1,"weeks":[{"id":"k2026-11-09","start":"2026-11-09","phase":"Recovery","note":"","target":null,"race":"","workouts":[{"id":"w1","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w2","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w3","type":"cross","title":"Swim","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w4","type":"strength","title":"Strength","detail":"Marc","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w5","type":"strength","title":"Strength","detail":"Marc","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2026-11-16","start":"2026-11-16","phase":"Recovery","note":"","target":null,"race":"","workouts":[{"id":"w6","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w7","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w8","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w9","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w10","type":"cross","title":"Swim","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w11","type":"strength","title":"Strength","detail":"Marc","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w12","type":"strength","title":"Strength","detail":"Marc","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2026-11-23","start":"2026-11-23","phase":"Japan","note":"","target":null,"race":"","workouts":[]},{"id":"k2026-11-30","start":"2026-11-30","phase":"Aerobic Rebuild","note":"","target":45,"race":"","workouts":[{"id":"w13","type":"long","title":"Long run","detail":"","planMi":12,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w14","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w15","type":"speed","title":"Colder Boulder 5k","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w16","type":"easy","title":"Easy run","detail":"","planMi":8,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w17","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w18","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w19","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w20","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w21","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2026-12-07","start":"2026-12-07","phase":"Aerobic Rebuild","note":"","target":50,"race":"","workouts":[{"id":"w22","type":"long","title":"Long run","detail":"","planMi":12,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w23","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w24","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w25","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w26","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w27","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w28","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w29","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w30","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2026-12-14","start":"2026-12-14","phase":"Aerobic Rebuild","note":"","target":50,"race":"","workouts":[{"id":"w31","type":"long","title":"Long run","detail":"","planMi":12,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w32","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w33","type":"speed","title":"Speedwork","detail":"Light threshold or comforably hard","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w34","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w35","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w36","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w37","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w38","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w39","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2026-12-21","start":"2026-12-21","phase":"Christmas - Aerobic Rebuild","note":"","target":50,"race":"","workouts":[{"id":"w40","type":"long","title":"Long run","detail":"","planMi":12,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w41","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w42","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w43","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w44","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2026-12-28","start":"2026-12-28","phase":"Aerobic Rebuild","note":"","target":55,"race":"","workouts":[{"id":"w45","type":"long","title":"Long run","detail":"","planMi":12,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w46","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w47","type":"speed","title":"Speedwork","detail":"Light threshold or comforably hard","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w48","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w49","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w50","type":"easy","title":"Easy run","detail":"","planMi":8,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w51","type":"easy","title":"Easy run","detail":"","planMi":8,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w52","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w53","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w54","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-01-04","start":"2027-01-04","phase":"Aerobic Rebuild","note":"","target":55,"race":"","workouts":[{"id":"w55","type":"long","title":"Long run","detail":"","planMi":15,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w56","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w57","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w58","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w59","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w60","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w61","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w62","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w63","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-01-11","start":"2027-01-11","phase":"Aerobic Rebuild","note":"","target":55,"race":"","workouts":[{"id":"w64","type":"long","title":"Long run","detail":"","planMi":12,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w65","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w66","type":"speed","title":"Speedwork","detail":"Light threshold or comforably hard","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w67","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w68","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w69","type":"easy","title":"Easy run","detail":"","planMi":8,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w70","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w71","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w72","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-01-18","start":"2027-01-18","phase":"Aerobic Rebuild","note":"","target":55,"race":"","workouts":[{"id":"w73","type":"long","title":"Long run","detail":"","planMi":15,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w74","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w75","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w76","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w77","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w78","type":"easy","title":"Easy run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w79","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w80","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w81","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-01-25","start":"2027-01-25","phase":"Threshold Development","note":"","target":null,"race":"","workouts":[{"id":"w82","type":"long","title":"Long run","detail":"","planMi":12,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w83","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w84","type":"speed","title":"Speedwork","detail":"Threshold (4x4min, 4x1 mile, 6x5 min, etc.)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w85","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w86","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w87","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w88","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w89","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w90","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-02-01","start":"2027-02-01","phase":"Work Travel - Threshold Development","note":"","target":null,"race":"","workouts":[{"id":"w91","type":"long","title":"Long run","detail":"","planMi":15,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w92","type":"speed","title":"Treadmill","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w93","type":"speed","title":"Speedwork","detail":"Threshold (4x4min, 4x1 mile, 6x5 min, etc.)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w94","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w95","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-02-08","start":"2027-02-08","phase":"Work Travel - Threshold Development","note":"","target":null,"race":"","workouts":[{"id":"w96","type":"speed","title":"Treadmill","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w97","type":"speed","title":"Speedwork","detail":"Threshold (4x4min, 4x1 mile, 6x5 min, etc.)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w98","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w99","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-02-15","start":"2027-02-15","phase":"Steamboat","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-02-22","start":"2027-02-22","phase":"Threshold Development","note":"","target":null,"race":"","workouts":[{"id":"w100","type":"long","title":"Long run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w101","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w102","type":"speed","title":"Speedwork","detail":"Threshold (4x4min, 4x1 mile, 6x5 min, etc.)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w103","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w104","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w105","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w106","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w107","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w108","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-03-01","start":"2027-03-01","phase":"Threshold Development","note":"","target":null,"race":"","workouts":[{"id":"w109","type":"long","title":"Long run","detail":"","planMi":15,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w110","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w111","type":"speed","title":"Speedwork","detail":"Threshold (4x4min, 4x1 mile, 6x5 min, etc.)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w112","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w113","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w114","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w115","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w116","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w117","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-03-08","start":"2027-03-08","phase":"Threshold Development","note":"","target":null,"race":"","workouts":[{"id":"w118","type":"long","title":"Long run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w119","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w120","type":"speed","title":"Speedwork","detail":"Threshold (4x4min, 4x1 mile, 6x5 min, etc.)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w121","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w122","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w123","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w124","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w125","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w126","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-03-15","start":"2027-03-15","phase":"Hawaii","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-03-22","start":"2027-03-22","phase":"Threshold Development","note":"","target":null,"race":"","workouts":[{"id":"w127","type":"long","title":"Long run","detail":"","planMi":15,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w128","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w129","type":"speed","title":"Speedwork","detail":"Threshold (4x4min, 4x1 mile, 6x5 min, etc.)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w130","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w131","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w132","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w133","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w134","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w135","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-03-29","start":"2027-03-29","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w136","type":"long","title":"Long run","detail":"","planMi":11,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w137","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w138","type":"speed","title":"Speedwork","detail":"Early (6 x 800m, 12 x 400 m, 5x3 min)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w139","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w140","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w141","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w142","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w143","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-04-05","start":"2027-04-05","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w144","type":"long","title":"Long run","detail":"","planMi":11,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w145","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w146","type":"speed","title":"Speedwork","detail":"Early (6 x 800m, 12 x 400 m, 5x3 min)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w147","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w148","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w149","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w150","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w151","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-04-12","start":"2027-04-12","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w152","type":"long","title":"Long run","detail":"","planMi":14,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w153","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w154","type":"speed","title":"Speedwork","detail":"Early (6 x 800m, 12 x 400 m, 5x3 min)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w155","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w156","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w157","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w158","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w159","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-04-19","start":"2027-04-19","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w160","type":"long","title":"Long run","detail":"","planMi":11,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w161","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w162","type":"speed","title":"Speedwork","detail":"Early (6 x 800m, 12 x 400 m, 5x3 min)","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w163","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w164","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w165","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w166","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w167","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-04-26","start":"2027-04-26","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w168","type":"long","title":"Long run","detail":"","planMi":11,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w169","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w170","type":"speed","title":"Later (3 x 1 mile, 4x4s)","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w171","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w172","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w173","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w174","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w175","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-05-03","start":"2027-05-03","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w176","type":"long","title":"Long run","detail":"","planMi":14,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w177","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w178","type":"speed","title":"Later (3 x 1 mile, 4x4s)","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w179","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w180","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w181","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w182","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w183","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-05-10","start":"2027-05-10","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w184","type":"long","title":"Long run","detail":"","planMi":11,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w185","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w186","type":"speed","title":"Later (3 x 1 mile, 4x4s)","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w187","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w188","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w189","type":"cross","title":"Cross-training","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w190","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w191","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-05-17","start":"2027-05-17","phase":"10K Specific","note":"","target":null,"race":"","workouts":[{"id":"w192","type":"long","title":"Long run","detail":"","planMi":11,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w193","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w194","type":"speed","title":"4x200m + 4x1k","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w195","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w196","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w197","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-05-24","start":"2027-05-24","phase":"10K Taper","note":"","target":null,"race":"","workouts":[{"id":"w198","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w199","type":"speed","title":"3x800","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w200","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w201","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w202","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-05-31","start":"2027-05-31","phase":"Bolder Boulder","note":"","target":null,"race":"Bolder Boulder","workouts":[{"id":"w203","type":"long","title":"Long run","detail":"","planMi":18,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w204","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w205","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w206","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w207","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w208","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-06-07","start":"2027-06-07","phase":"Miles","note":"","target":null,"race":"","workouts":[{"id":"w209","type":"long","title":"Long run","detail":"","planMi":20,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w210","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w211","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w212","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w213","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w214","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w215","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-06-14","start":"2027-06-14","phase":"Taper","note":"","target":null,"race":"","workouts":[{"id":"w216","type":"long","title":"Long run","detail":"","planMi":10,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w217","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w218","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w219","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w220","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w221","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-06-21","start":"2027-06-21","phase":"Missoula Marathon","note":"","target":null,"race":"Missoula Marathon","workouts":[{"id":"w222","type":"race","title":"Race","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w223","type":"speed","title":"Anaerobic Conditioning","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w224","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w225","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w226","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-06-28","start":"2027-06-28","phase":"Reset","note":"","target":null,"race":"","workouts":[{"id":"w227","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w228","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-07-05","start":"2027-07-05","phase":"Reset","note":"","target":null,"race":"","workouts":[{"id":"w229","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w230","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w231","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w232","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-07-12","start":"2027-07-12","phase":"Build Volume","note":"","target":null,"race":"","workouts":[{"id":"w233","type":"long","title":"Long run","detail":"easy","planMi":14,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w234","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w235","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w236","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w237","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w238","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-07-19","start":"2027-07-19","phase":"Build Volume","note":"","target":null,"race":"","workouts":[{"id":"w239","type":"long","title":"Long run","detail":"easy","planMi":16,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w240","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w241","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w242","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w243","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w244","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-07-26","start":"2027-07-26","phase":"Build Volume","note":"","target":null,"race":"","workouts":[{"id":"w245","type":"long","title":"Long run","detail":"easy","planMi":14,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w246","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w247","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w248","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w249","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w250","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-08-02","start":"2027-08-02","phase":"Build Volume","note":"","target":null,"race":"","workouts":[{"id":"w251","type":"long","title":"Long run","detail":"easy","planMi":18,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w252","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w253","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w254","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w255","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w256","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-08-09","start":"2027-08-09","phase":"Marathon Strength","note":"","target":null,"race":"","workouts":[{"id":"w257","type":"long","title":"Long run","detail":"with MP","planMi":18,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w258","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w259","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w260","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w261","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w262","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-08-16","start":"2027-08-16","phase":"Marathon Strength","note":"","target":null,"race":"","workouts":[{"id":"w263","type":"long","title":"Long run","detail":"easy","planMi":15,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w264","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w265","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w266","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w267","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w268","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-08-23","start":"2027-08-23","phase":"Marathon Strength","note":"","target":null,"race":"","workouts":[{"id":"w269","type":"long","title":"Long run","detail":"with MP","planMi":20,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w270","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w271","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w272","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w273","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w274","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-08-30","start":"2027-08-30","phase":"Marathon Strength","note":"","target":null,"race":"","workouts":[{"id":"w275","type":"long","title":"Long run","detail":"easy","planMi":16,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w276","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w277","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w278","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w279","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w280","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-09-06","start":"2027-09-06","phase":"Peak Specificity","note":"","target":null,"race":"","workouts":[{"id":"w281","type":"long","title":"Long run","detail":"with MP","planMi":20,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w282","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w283","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w284","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w285","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w286","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-09-13","start":"2027-09-13","phase":"Peak Specificity","note":"","target":null,"race":"","workouts":[{"id":"w287","type":"long","title":"Long run","detail":"easy","planMi":16,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w288","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w289","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w290","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w291","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w292","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-09-20","start":"2027-09-20","phase":"Peak Specificity","note":"","target":null,"race":"","workouts":[{"id":"w293","type":"long","title":"Long run","detail":"","planMi":20,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w294","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w295","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w296","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w297","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w298","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-09-27","start":"2027-09-27","phase":"Peak Specificity","note":"","target":null,"race":"","workouts":[{"id":"w299","type":"long","title":"Long run","detail":"with mp","planMi":18,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w300","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w301","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w302","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w303","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w304","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-10-04","start":"2027-10-04","phase":"Taper","note":"","target":null,"race":"","workouts":[{"id":"w305","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w306","type":"speed","title":"short MP","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w307","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w308","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w309","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w310","type":"strength","title":"Strength","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-10-11","start":"2027-10-11","phase":"Twin Cites","note":"","target":null,"race":"Twin Cites","workouts":[{"id":"w311","type":"race","title":"Race","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w312","type":"speed","title":"Speedwork","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w313","type":"speed","title":"short MP","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""},{"id":"w314","type":"easy","title":"Easy run","detail":"","planMi":null,"status":"planned","day":null,"actualMi":null,"note":""}]},{"id":"k2027-10-18","start":"2027-10-18","phase":"Recover","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-10-25","start":"2027-10-25","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-11-01","start":"2027-11-01","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-11-08","start":"2027-11-08","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-11-15","start":"2027-11-15","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-11-22","start":"2027-11-22","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-11-29","start":"2027-11-29","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-12-06","start":"2027-12-06","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-12-13","start":"2027-12-13","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-12-20","start":"2027-12-20","phase":"","note":"","target":null,"race":"","workouts":[]},{"id":"k2027-12-27","start":"2027-12-27","phase":"","note":"","target":null,"race":"","workouts":[]}]};
+const ICON = {
+  long:'<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/>',
+  easy:'<circle cx="14" cy="4.5" r="1.6"/><path d="M5 18.5l4.2.8.9-2M15 21v-4.2l-3.6-3 1-5.3M7.5 12.5V9.3l4.9-1.1 2.8 2.8 3 1"/>',
+  speed:'<path d="M13 2.5 4.5 13.5h6.5l-1 8 8.5-11h-6.5z"/>',
+  cross:'<circle cx="17" cy="6" r="1.7"/><path d="M8 12.5l3.3-3.8 3.7 2.3M3 16.5c1.5 1.2 3 1.2 4.5 0s3-1.2 4.5 0 3 1.2 4.5 0 3-1.2 4.5 0M3 20c1.5 1.2 3 1.2 4.5 0s3-1.2 4.5 0 3 1.2 4.5 0 3-1.2 4.5 0"/>',
+  strength:'<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/>',
+  race:'<path d="M5.5 21V4M5.5 4.5h12l-2.5 4 2.5 4h-12"/>',
+  other:'<circle cx="12" cy="12" r="3.5"/>'
+};
+const UI = {
+  left:'<path d="M15 5l-7 7 7 7"/>', right:'<path d="M9 5l7 7-7 7"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>', edit:'<path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+  cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  flame:'<path d="M12 21a6 6 0 0 0 6-6c0-4-3-6-4-9-1 2-2 3-4 4 0-1.5-.5-2.5-1-3-1.5 2-3 4.5-3 8a6 6 0 0 0 6 6z"/>',
+  route:ICON.long, flag:ICON.race, cloud:'<path d="M7 18a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 10a4 4 0 0 1-.5 8z"/>'
+};
+const svg = (p, w=2) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const TYPES = {
+  long:{label:'Long run',c:'var(--indigo)'}, easy:{label:'Easy run',c:'var(--green)'},
+  speed:{label:'Speedwork',c:'var(--orange)'}, race:{label:'Race',c:'var(--red)'},
+  cross:{label:'Cross-training',c:'var(--cyan)'}, strength:{label:'Strength',c:'var(--pink)'},
+  other:{label:'Other',c:'var(--brown)'}
+};
+const STATUS = {planned:'Planned',done:'Done',partial:'Partial',skipped:'Skipped'};
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const PHASE_COLORS = ['var(--indigo)','var(--teal)','var(--orange)','var(--purple)','var(--green)','var(--pink)','var(--blue)','var(--brown)'];
+const LS_KEY = 'training2027.plan';
+
+let plan = null, cur = 0, tab = 'week', mode = FIREBASE_CONFIG ? 'cloud' : 'local';
+let fb = null, unsub = null, saveTimer = null, syncState = 'Saved on this device', userEmail = '';
+const qs = new URLSearchParams(location.search);
+const TODAY = qs.get('today') ? parseD(qs.get('today')) : startOfDay(new Date());
+
+function parseD(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function iso(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function md(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+function range(w){const a=parseD(w.start),b=addDays(a,6);return a.getMonth()===b.getMonth()?`${md(a)} – ${b.getDate()}`:`${md(a)} – ${md(b)}`}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function num(n){return n==null?'':(Math.round(n*10)/10).toString()}
+function uid(){return 'w'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function todayIdx(){const ws=plan.weeks;for(let i=0;i<ws.length;i++){const s=parseD(ws[i].start);if(TODAY>=s&&TODAY<addDays(s,7))return i}return TODAY<parseD(ws[0].start)?0:ws.length-1}
+function restack(){const s=parseD(plan.weeks[0].start);plan.weeks.forEach((w,i)=>{w.start=iso(addDays(s,7*i))})}
+function logged(x){return x.actualMi!=null?x.actualMi:(x.status==='done'&&x.planMi?x.planMi:0)}
+function stats(w){
+  const ws=w.workouts, s={total:ws.length,done:0,partial:0,skipped:0,planMi:0,logged:0};
+  ws.forEach(x=>{if(x.status==='done')s.done++;if(x.status==='partial')s.partial++;if(x.status==='skipped')s.skipped++;s.planMi+=x.planMi||0;s.logged+=logged(x)});
+  s.goal=w.target!=null?w.target:(s.planMi||null);return s;
+}
+function findW(id){for(const w of plan.weeks){const x=w.workouts.find(o=>o.id===id);if(x)return {w,x}}return null}
+
+/* ---------- persistence ---------- */
+function loadLocal(){try{const s=localStorage.getItem(LS_KEY);if(s)return JSON.parse(s)}catch(e){}return null}
+function save(){
+  render();
+  if(mode==='local'){try{localStorage.setItem(LS_KEY,JSON.stringify(plan));syncState='Saved on this device'}catch(e){syncState='Not saved — storage unavailable'}return}
+  syncState='Saving…';clearTimeout(saveTimer);saveTimer=setTimeout(writeRemote,350);
+}
+async function writeRemote(){
+  try{await fb.F.setDoc(fb.ref,{plan,updatedAt:Date.now(),by:userEmail});syncState='Synced'}
+  catch(e){syncState='Couldn’t sync — will retry when online';toast('Couldn’t save to the cloud')}
+}
+
+/* ---------- rendering ---------- */
+function rings(a,b,hasB){
+  const R1=50,R2=33,C1=2*Math.PI*R1,C2=2*Math.PI*R2,cl=v=>Math.max(0,Math.min(1,v||0));
+  const arc=(r,C,p,col)=>`<circle cx="58" cy="58" r="${r}" fill="none" stroke="${col}" stroke-opacity=".2" stroke-width="14"/><circle class="ring-arc" cx="58" cy="58" r="${r}" fill="none" stroke="${col}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-cl(p))}" transform="rotate(-90 58 58)" ${p>0?'':'stroke-opacity="0"'}/>`;
+  return `<svg class="rings" viewBox="0 0 116 116" role="img" aria-label="Progress rings">${arc(R1,C1,a,'var(--ring1)')}${hasB?arc(R2,C2,b,'var(--ring2)'):''}</svg>`;
+}
+function row(x){
+  const t=TYPES[x.type]||TYPES.other, bits=[];
+  if(x.planMi)bits.push(`${num(x.planMi)} mi`);
+  if(x.detail)bits.push(esc(x.detail));
+  if(x.title!==t.label&&x.type!=='race'&&!x.detail&&!x.planMi)bits.push(t.label);
+  let sub=bits.map((b,i)=>`<span class="${i?'dot':''}">${b}</span>`).join('');
+  if(x.day!=null)sub+=`<span class="chip">${DAYS[x.day]}</span>`;
+  if(x.status==='partial'||x.status==='skipped')sub+=`<span class="chip ${x.status}">${STATUS[x.status]}</span>`;
+  if(x.actualMi!=null)sub+=`<span class="chip">${num(x.actualMi)} mi logged</span>`;
+  if(x.note)sub+=`<span class="chip">Note</span>`;
+  return `<div class="row ${x.status}" data-act="open" data-id="${x.id}">
+    <span class="tile" style="--c:${t.c}">${svg(ICON[x.type]||ICON.other,2)}</span>
+    <div class="rtext"><div class="rtitle">${esc(x.title||t.label)}</div>${sub?`<div class="rsub">${sub}</div>`:''}</div>
+    <button class="check ${x.status}" data-act="toggle" data-id="${x.id}" aria-label="${x.status==='done'?'Mark not done':'Mark done'}"><i>${svg(UI.check,3)}</i></button></div>`;
+}
+function renderWeek(){
+  const w=plan.weeks[cur], s=stats(w), now=todayIdx(), isNow=cur===now;
+  const list=w.workouts.map((x,i)=>({x,i})).sort((a,b)=>((a.x.day??7)-(b.x.day??7))||a.i-b.i).map(o=>row(o.x)).join('');
+  const hasMi=!!s.goal;
+  return `
+  <div class="topbar">
+    <div><button class="iconbtn" data-act="prev" aria-label="Previous week" ${cur===0?'disabled style="opacity:.3"':''}>${svg(UI.left,2.4)}</button><button class="iconbtn" data-act="next" aria-label="Next week" ${cur===plan.weeks.length-1?'disabled style="opacity:.3"':''}>${svg(UI.right,2.4)}</button></div>
+    <div style="display:flex;gap:6px;align-items:center">${isNow?'':`<button class="pillbtn" data-act="today">This week</button>`}<button class="iconbtn" data-act="settings" aria-label="Settings">${svg(UI.gear,1.8)}</button></div>
+  </div>
+  <div class="eyebrow">${isNow?'This week · ':''}Week ${cur+1} · ${range(w)}</div>
+  <h1>${esc(w.phase||'Week '+(cur+1))}</h1>
+  ${w.race?`<span class="badge" style="--c:var(--red)">${svg(ICON.race,2.2)}${esc(w.race)}</span>`:''}
+  ${mode==='local'?`<div class="banner" style="margin-top:12px">${svg(UI.cloud,1.8).replace('<svg','<svg style="width:16px;height:16px;flex:none"')}Preview mode · changes save on this device only</div>`:''}
+  ${s.total?`<section class="card ringcard">
+    ${rings(s.total?s.done/s.total:0,hasMi?s.logged/s.goal:0,hasMi)}
+    <div class="ringstats">
+      <div><div class="lbl" style="color:var(--ring1)">Workouts</div><div class="num round">${s.done}<small>/${s.total}</small></div></div>
+      ${hasMi?`<div><div class="lbl" style="color:var(--ring2)">Miles</div><div class="num round">${num(s.logged)}<small>/${num(s.goal)}</small></div></div>`:''}
+    </div></section>`:''}
+  ${w.note?`<div class="card note">${esc(w.note)}</div>`:''}
+  ${s.total?`<h2 class="sect">Workouts <small>${s.total-s.done-s.skipped>0?(s.total-s.done-s.skipped)+' to go':'All wrapped up'}</small></h2><div class="list">${list}</div>`
+   :`<div class="card empty" style="margin-top:16px">${svg(UI.moon,1.6)}<div style="font-weight:600;color:var(--text)">No workouts planned</div><div style="font-size:15px;margin-top:4px">Add one if anything changes.</div></div>`}
+  <div class="actions"><button class="actbtn" data-act="add">${svg(UI.plus,2.4)}Add workout</button><button class="actbtn" data-act="editweek">${svg(UI.edit,2)}Edit week</button></div>`;
+}
+function phaseColors(){
+  const map={},names=[];let k=0;
+  plan.weeks.forEach(w=>{const n=w.phase||'—';if(!(n in map)){if(!w.workouts.length){map[n]='var(--fill2)'}else{map[n]=PHASE_COLORS[k++%PHASE_COLORS.length]}names.push(n)}});
+  return {map,names};
+}
+function renderProgress(){
+  const ws=plan.weeks, n=ws.length, now=todayIdx(), {map,names}=phaseColors();
+  const started=ws.filter(w=>parseD(w.start)<=TODAY);
+  let done=0,tot=0,mi=0;started.forEach(w=>{const s=stats(w);done+=s.done;tot+=s.total});ws.forEach(w=>mi+=stats(w).logged);
+  const next=ws.map((w,i)=>({w,i})).find(o=>o.w.race&&addDays(parseD(o.w.start),7)>TODAY);
+  const days=next?Math.max(0,Math.round((parseD(next.w.start)-TODAY)/864e5)):null;
+  const pos=((now+Math.min(1,Math.max(0,(TODAY-parseD(ws[now].start))/(7*864e5))))/n)*100;
+  const runs=[];ws.forEach((w,i)=>{const ph=w.phase||'—';const l=runs[runs.length-1];if(l&&l.p===ph)l.n++;else runs.push({p:ph,i,n:1})});
+  const segs=runs.map(r=>`<span data-act="goto" data-i="${r.i}" title="${esc(r.p)}" style="flex:${r.n};background:${map[r.p]};${r.i+r.n<=now?'':r.i>now?'opacity:.45':''}"></span>`).join('');
+  const nr=runs.find(r=>r.i>now&&ws[r.i].workouts.length);
+  const flags=ws.map((w,i)=>w.race?`<span class="tlflag" style="left:${(i+.5)/n*100}%" title="${esc(w.race)}">${svg(ICON.race,2.2)}</span>`:'').join('');
+  const st=ws.map(stats), max=Math.max(10,...st.map(s=>Math.max(s.goal||0,s.logged)));
+  const bw=10, H=130, bars=st.map((s,i)=>{const x=i*bw+1.5,gh=(s.goal||0)/max*H,lh=s.logged/max*H;
+    return `<g data-act="goto" data-i="${i}" style="cursor:pointer"><rect x="${i*bw}" y="0" width="${bw}" height="${H}" fill="transparent"/>${gh?`<rect x="${x}" y="${H-gh}" width="7" height="${gh}" rx="2" fill="var(--fill2)"/>`:''}${lh?`<rect x="${x}" y="${H-lh}" width="7" height="${lh}" rx="2" fill="var(--ring2)"/>`:''}${i===now?`<rect x="${x-1}" y="${H+4}" width="9" height="3" rx="1.5" fill="var(--tint)"/>`:''}</g>`}).join('');
+  let groups='',last=null,open=false;
+  ws.forEach((w,i)=>{const p=w.phase||'—';if(p!==last){if(open)groups+='</div>';groups+=`<div class="ghdr" style="--c:${map[p]}"><i></i>${esc(p)}</div><div class="list">`;open=true;last=p}
+    const s=stats(w),pct=s.total?s.done/s.total*100:0;
+    groups+=`<div class="wkrow" data-act="goto" data-i="${i}"><div class="wl"><div class="wt">Week ${i+1}${w.race?svg(ICON.race,2.2):''}${i===now?' <span class="nowtag">Now</span>':''}</div><div class="wd">${range(w)}${w.race?' · '+esc(w.race):''}</div></div>${s.total?`<div class="mini"><b style="width:${pct}%"></b></div><div class="wc round">${s.done}/${s.total}</div>`:'<div class="wc">Off</div>'}</div>`});
+  if(open)groups+='</div>';
+  const end=addDays(parseD(ws[n-1].start),6);
+  return `
+  <div class="topbar"><span></span><button class="iconbtn" data-act="settings" aria-label="Settings">${svg(UI.gear,1.8)}</button></div>
+  <div class="eyebrow">${md(parseD(ws[0].start))}, ${parseD(ws[0].start).getFullYear()} – ${md(end)}, ${end.getFullYear()}</div>
+  <h1>Progress</h1>
+  <div class="tiles">
+    <div class="card stat"><div class="lbl" style="color:var(--tint)">${svg(UI.cal,2)}Week</div><div><div class="big round">${now+1}<small>of ${n}</small></div><div class="sub">${esc(ws[now].phase||'')}</div></div></div>
+    <div class="card stat"><div class="lbl" style="color:var(--red)">${svg(ICON.race,2.2)}Next race</div><div>${next?`<div class="big round">${days}<small>days</small></div><div class="sub">${esc(next.w.race)} week</div>`:`<div class="big round">–</div><div class="sub">None scheduled</div>`}</div></div>
+    <div class="card stat"><div class="lbl" style="color:var(--ring1)">${svg(UI.check,2.4)}Workouts</div><div><div class="big round">${done}<small>of ${tot}</small></div><div class="sub">Done so far</div></div></div>
+    <div class="card stat"><div class="lbl" style="color:var(--ring2)">${svg(ICON.long,2)}Miles</div><div><div class="big round">${num(mi)}</div><div class="sub">Logged this season</div></div></div>
+  </div>
+  <h2 class="sect">Season</h2>
+  <div class="card tl"><div class="tlwrap">${flags}<div class="tlbar">${segs}</div><span class="tlnow" style="left:${pos}%"></span></div>
+    <div class="tlaxis"><span>${md(parseD(ws[0].start))}</span><span>${md(end)}</span></div><div class="legend"><span><i style="--c:${map[ws[now].phase||'—']}"></i>Now · ${esc(ws[now].phase||'—')}</span>${nr?`<span><i style="--c:${map[nr.p]}"></i>Next · ${esc(nr.p)}, ${md(parseD(ws[nr.i].start))}</span>`:''}</div></div>
+  <h2 class="sect">Weekly miles</h2>
+  <div class="card chartcard"><div class="chartkey"><span><i style="background:var(--fill2)"></i>Target</span><span><i style="background:var(--ring2)"></i>Logged</span><span style="margin-left:auto" class="round">max ${num(max)} mi</span></div>
+    <svg viewBox="0 0 ${n*bw} ${H+8}" preserveAspectRatio="none" role="img" aria-label="Weekly miles, target versus logged">${bars}</svg></div>
+  <h2 class="sect">All weeks</h2>
+  ${groups}
+  <div style="margin-top:20px" class="list"><button class="btnrow" data-act="addweekend">Add a week at the end</button></div>`;
+}
+function render(){
+  if(!plan)return;
+  document.getElementById('main').innerHTML = tab==='week'?renderWeek():renderProgress();
+  document.getElementById('tabbar').hidden=false;
+  document.getElementById('t-week').classList.toggle('on',tab==='week');
+  document.getElementById('t-progress').classList.toggle('on',tab==='progress');
+}
+
+/* ---------- sheets ---------- */
+function openSheet(html,bind){
+  closeSheet();
+  const s=document.createElement('div');s.className='scrim';s.id='scrim';
+  s.innerHTML=`<div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>${html}</div>`;
+  s.addEventListener('click',e=>{if(e.target===s)closeSheet()});
+  document.body.appendChild(s);document.body.style.overflow='hidden';
+  bind&&bind(s.querySelector('.sheet'));
+}
+function closeSheet(){const s=document.getElementById('scrim');if(s)s.remove();document.body.style.overflow=''}
+function seg(name,opts,val){return `<div class="seg" data-seg="${name}">${opts.map(([v,l])=>`<button type="button" data-v="${v}" class="${String(v)===String(val)?'on':''}">${l}</button>`).join('')}</div>`}
+function bindSeg(root,name,cb){const el=root.querySelector(`[data-seg="${name}"]`);el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;el.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));cb(b.dataset.v)})}
+function parseMi(v){v=String(v).trim();if(!v)return {ok:true,v:null};const n=Number(v);return (isFinite(n)&&n>=0)?{ok:true,v:n}:{ok:false}}
+
+function workoutSheet(id){
+  const isNew=!id, f=id?findW(id):null, wi=isNew?cur:plan.weeks.indexOf(f.w);
+  const d=isNew?{id:uid(),type:'easy',title:'Easy run',detail:'',planMi:null,status:'planned',day:null,actualMi:null,note:''}:structuredClone(f.x);
+  let target=wi, autoTitle=isNew||d.title===(TYPES[d.type]||{}).label;
+  const weekOpts=plan.weeks.map((w,i)=>`<option value="${i}" ${i===wi?'selected':''}>Week ${i+1} · ${md(parseD(w.start))}${w.phase?' · '+esc(w.phase):''}</option>`).join('');
+  openSheet(`
+  <div class="shdr"><button class="l" data-x="cancel">Cancel</button><h3>${isNew?'New workout':'Workout'}</h3><button class="r" data-x="save">${isNew?'Add':'Done'}</button></div>
+  <div class="glabel">Status</div>
+  <div class="group"><div class="field col">${seg('status',Object.entries(STATUS),d.status)}</div>
+    <div class="field"><label>Miles logged</label><input name="actualMi" inputmode="decimal" placeholder="${d.planMi?num(d.planMi):'0'}" value="${num(d.actualMi)}"></div></div>
+  <div class="err" data-err hidden></div>
+  <div class="glabel">Workout</div>
+  <div class="group">
+    <div class="field col"><label>Type</label><div class="types">${Object.entries(TYPES).map(([k,t])=>`<button type="button" data-type="${k}" style="--c:${t.c}" class="${k===d.type?'on':''}"><span class="tile" style="--c:${t.c}">${svg(ICON[k],2.2)}</span>${t.label}</button>`).join('')}</div></div>
+    <div class="field"><label>Name</label><input name="title" value="${esc(d.title)}" placeholder="Easy run"></div>
+    <div class="field"><label>Details</label><input name="detail" value="${esc(d.detail)}" placeholder="Optional"></div>
+    <div class="field"><label>Planned miles</label><input name="planMi" inputmode="decimal" value="${num(d.planMi)}" placeholder="None"></div>
+    <div class="field col"><label>Day</label>${seg('day',[['','Any'],...DAYS.map((x,i)=>[i,x[0]])],d.day??'')}</div>
+    <div class="field"><label>Week</label><select name="week">${weekOpts}</select></div>
+  </div>
+  <div class="glabel">Note</div>
+  <div class="group"><div class="field"><textarea name="note" placeholder="How did it go?">${esc(d.note)}</textarea></div></div>
+  ${isNew?'':`<div class="group"><button class="btnrow danger" data-x="del">Delete workout</button></div>`}`,
+  sh=>{
+    const q=n=>sh.querySelector(`[name="${n}"]`);
+    bindSeg(sh,'status',v=>d.status=v);
+    bindSeg(sh,'day',v=>d.day=v===''?null:Number(v));
+    q('title').addEventListener('input',()=>autoTitle=false);
+    sh.querySelector('.types').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;d.type=b.dataset.type;sh.querySelectorAll('.types button').forEach(x=>x.classList.toggle('on',x===b));if(autoTitle)q('title').value=TYPES[d.type].label});
+    q('week').addEventListener('change',e=>target=Number(e.target.value));
+    sh.addEventListener('click',e=>{
+      const x=e.target.closest('[data-x]');if(!x)return;
+      if(x.dataset.x==='cancel')return closeSheet();
+      if(x.dataset.x==='del'){if(confirm('Delete this workout?')){const cf=findW(id);if(cf)cf.w.workouts=cf.w.workouts.filter(o=>o.id!==id);closeSheet();save()}return}
+      const a=parseMi(q('actualMi').value),p=parseMi(q('planMi').value),err=sh.querySelector('[data-err]');
+      if(!a.ok||!p.ok){err.textContent='Miles need to be a number, like 6 or 6.5.';err.hidden=false;return}
+      Object.assign(d,{actualMi:a.v,planMi:p.v,title:q('title').value.trim()||TYPES[d.type].label,detail:q('detail').value.trim(),note:q('note').value.trim()});
+      const cf=isNew?null:findW(id), dest=plan.weeks[target];
+      if(!isNew&&!cf){closeSheet();toast('That workout changed on another device');return}
+      if(cf&&cf.w===dest){cf.w.workouts[cf.w.workouts.indexOf(cf.x)]=d}
+      else{if(cf)cf.w.workouts=cf.w.workouts.filter(o=>o.id!==id);dest.workouts.push(d)}
+      closeSheet();save();
+      if(target!==wi)toast(`Moved to week ${target+1}`);
+    });
+  });
+}
+
+function weekSheet(){
+  const w=plan.weeks[cur];
+  openSheet(`
+  <div class="shdr"><button class="l" data-x="cancel">Cancel</button><h3>Week ${cur+1}</h3><button class="r" data-x="save">Done</button></div>
+  <div class="group">
+    <div class="field"><label>Phase</label><input name="phase" value="${esc(w.phase)}" placeholder="Aerobic rebuild"></div>
+    <div class="field"><label>Race</label><input name="race" value="${esc(w.race)}" placeholder="None"></div>
+    <div class="field"><label>Target miles</label><input name="target" inputmode="decimal" value="${num(w.target)}" placeholder="None"></div>
+  </div>
+  <div class="err" data-err hidden></div>
+  <div class="foot">With no target, the miles ring uses the sum of planned miles.</div>
+  <div class="glabel">Week note</div>
+  <div class="group"><div class="field"><textarea name="note" placeholder="Anything to remember this week">${esc(w.note)}</textarea></div></div>
+  <div class="group">
+    <button class="btnrow" data-x="insert">Insert a blank week before this one</button>
+    <button class="btnrow" data-x="clear">Clear all workouts this week</button>
+    <button class="btnrow danger" data-x="remove">Remove this week</button>
+  </div>
+  <div class="foot">Inserting or removing a week shifts every later week's dates, including race weeks.</div>`,
+  sh=>{
+    const q=n=>sh.querySelector(`[name="${n}"]`);
+    sh.addEventListener('click',e=>{
+      const x=e.target.closest('[data-x]');if(!x)return;const a=x.dataset.x;
+      if(a==='cancel')return closeSheet();
+      if(a==='insert'){if(!confirm('Insert a blank week here? Every later week moves back by 7 days.'))return;plan.weeks.splice(cur,0,{id:'k'+uid(),start:w.start,phase:'',note:'',target:null,race:'',workouts:[]});restack();closeSheet();save();return}
+      if(a==='clear'){if(!confirm('Remove every workout from this week?'))return;w.workouts=[];closeSheet();save();return}
+      if(a==='remove'){if(plan.weeks.length<2)return;if(!confirm('Remove this week and its workouts? Every later week moves up by 7 days.'))return;plan.weeks.splice(cur,1);restack();cur=Math.min(cur,plan.weeks.length-1);closeSheet();save();return}
+      const t=parseMi(q('target').value),err=sh.querySelector('[data-err]');
+      if(!t.ok){err.textContent='Target miles needs to be a number.';err.hidden=false;return}
+      Object.assign(w,{phase:q('phase').value.trim(),race:q('race').value.trim(),target:t.v,note:q('note').value.trim()});
+      closeSheet();save();
+    });
+  });
+}
+function settingsSheet(){
+  openSheet(`
+  <div class="shdr"><span style="min-width:64px"></span><h3>Settings</h3><button class="r" data-x="cancel">Done</button></div>
+  <div class="group">
+    <div class="field"><label>Storage</label><input readonly value="${mode==='local'?'This device (preview)':'Cloud'}"></div>
+    <div class="field"><label>Status</label><input readonly value="${esc(syncState)}"></div>
+    ${userEmail?`<div class="field"><label>Signed in</label><input readonly value="${esc(userEmail)}"></div>`:''}
+  </div>
+  <div class="group"><button class="btnrow" data-x="csv">Export to CSV</button></div>
+  <div class="foot">Opens in Google Sheets, Numbers or Excel.</div>
+  <div class="group">
+    ${mode==='cloud'?'<button class="btnrow" data-x="signout">Sign out</button>':''}
+    <button class="btnrow danger" data-x="reset">Restore the original plan</button>
+  </div>
+  <div class="foot">Restoring replaces every edit and status with the plan as imported from the spreadsheet.</div>`,
+  sh=>sh.addEventListener('click',e=>{
+    const x=e.target.closest('[data-x]');if(!x)return;const a=x.dataset.x;
+    if(a==='cancel')closeSheet();
+    if(a==='csv')exportCSV();
+    if(a==='signout'){closeSheet();fb.Au.signOut(fb.auth)}
+    if(a==='reset'&&confirm('Replace everything with the original plan? Statuses, notes and edits will be lost.')){plan=structuredClone(SEED);cur=todayIdx();closeSheet();save();toast('Original plan restored')}
+  }));
+}
+function exportCSV(){
+  const q=v=>{v=v==null?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+  const out=[['Week','Start','Phase','Race','Target miles','Week note','Workout','Type','Details','Planned miles','Day','Status','Miles logged','Note']];
+  plan.weeks.forEach((w,i)=>{const base=[i+1,w.start,w.phase,w.race,w.target,w.note];
+    if(!w.workouts.length)out.push([...base,'','','','','','','','']);
+    w.workouts.forEach(x=>out.push([...base,x.title,(TYPES[x.type]||TYPES.other).label,x.detail,x.planMi,x.day!=null?DAYS[x.day]:'',STATUS[x.status],x.actualMi,x.note]))});
+  const blob=new Blob([out.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`training-2027-${iso(TODAY)}.csv`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+function toast(t){const o=document.querySelector('.toast');if(o)o.remove();const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]');if(!el||el.closest('.sheet'))return;
+  const a=el.dataset.act;
+  if(a==='toggle'){e.stopPropagation();const f=findW(el.dataset.id);f.x.status=f.x.status==='done'?'planned':'done';if(navigator.vibrate)navigator.vibrate(8);save();return}
+  if(a==='open'){workoutSheet(el.dataset.id)}
+  if(a==='prev'&&cur>0){cur--;render();scrollTo(0,0)}
+  if(a==='next'&&cur<plan.weeks.length-1){cur++;render();scrollTo(0,0)}
+  if(a==='today'){cur=todayIdx();render()}
+  if(a==='add')workoutSheet(null);
+  if(a==='editweek')weekSheet();
+  if(a==='settings')settingsSheet();
+  if(a==='tab'){tab=el.dataset.tab;render();scrollTo(0,0)}
+  if(a==='goto'){cur=Number(el.dataset.i);tab='week';render();scrollTo(0,0)}
+  if(a==='addweekend'){const l=plan.weeks[plan.weeks.length-1];plan.weeks.push({id:'k'+uid(),start:iso(addDays(parseD(l.start),7)),phase:'',note:'',target:null,race:'',workouts:[]});save();toast(`Added week ${plan.weeks.length}`)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+
+/* ---------- cloud ---------- */
+function signInView(msg){
+  document.getElementById('tabbar').hidden=true;
+  document.getElementById('main').innerHTML=`<div class="signin">
+    <svg viewBox="0 0 116 116" style="width:84px;height:84px">${rings(.72,.5,true).replace(/<\/?svg[^>]*>/g,'')}</svg>
+    <h1 style="margin-top:12px">Training 2027</h1><div style="color:var(--sec)">Sign in to see the plan.</div>
+    <button class="gbtn" data-signin>${svg('<path d="M20.5 12.2c0-.6 0-1.2-.2-1.8H12v3.4h4.8a4.1 4.1 0 0 1-1.8 2.7v2.2h2.9c1.7-1.6 2.6-3.9 2.6-6.5zM12 21c2.4 0 4.5-.8 5.9-2.2l-2.9-2.2c-.8.5-1.8.9-3 .9-2.3 0-4.3-1.6-5-3.7H4v2.3A9 9 0 0 0 12 21zM7 13.8a5.4 5.4 0 0 1 0-3.5V8H4a9 9 0 0 0 0 8.1zM12 6.6c1.3 0 2.5.5 3.4 1.3L18 5.4A9 9 0 0 0 4 8l3 2.3c.7-2.1 2.7-3.7 5-3.7z"/>',0).replace('fill="none"','fill="currentColor"').replace('style','')}Sign in with Google</button>
+    ${msg?`<div style="color:var(--red);font-size:14px;max-width:300px;margin-top:10px">${esc(msg)}</div>`:''}</div>`;
+  document.querySelector('[data-signin]').onclick=async()=>{
+    const p=new fb.Au.GoogleAuthProvider();
+    try{await fb.Au.signInWithPopup(fb.auth,p)}
+    catch(e){if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment','auth/cancelled-popup-request'].includes(e.code))fb.Au.signInWithRedirect(fb.auth,p);else if(e.code!=='auth/popup-closed-by-user')signInView('Sign-in didn’t work: '+(e.code||e.message))}
+  };
+}
+async function initCloud(){
+  document.getElementById('main').innerHTML='<div class="signin" style="color:var(--sec)">Loading…</div>';
+  const b='https://www.gstatic.com/firebasejs/10.12.2/';
+  try{
+    const [A,Au,F]=await Promise.all([import(b+'firebase-app.js'),import(b+'firebase-auth.js'),import(b+'firebase-firestore.js')]);
+    const app=A.initializeApp(FIREBASE_CONFIG), auth=Au.getAuth(app);
+    let db;try{db=F.initializeFirestore(app,{localCache:F.persistentLocalCache({tabManager:F.persistentMultipleTabManager()})})}catch(e){db=F.getFirestore(app)}
+    fb={A,Au,F,auth,db,ref:F.doc(db,'plans','main')};
+    Au.getRedirectResult(auth).catch(e=>signInView('Sign-in didn’t work: '+(e.code||e.message)));
+    Au.onAuthStateChanged(auth,u=>{
+      if(unsub){unsub();unsub=null}
+      if(!u){plan=null;userEmail='';signInView();return}
+      userEmail=u.email||'';let first=true;
+      unsub=F.onSnapshot(fb.ref,s=>{
+        if(s.metadata.hasPendingWrites)return;
+        if(!s.exists()){plan=structuredClone(SEED);writeRemote()}else plan=s.data().plan;
+        syncState=s.metadata.fromCache?'Offline · changes will sync':'Synced';
+        if(first){cur=todayIdx();first=false}
+        if(cur>plan.weeks.length-1)cur=plan.weeks.length-1;
+        if(!document.getElementById('scrim'))render();
+      },e=>{
+        if(e.code==='permission-denied'){Au.signOut(auth).then(()=>signInView(`${u.email} doesn’t have access. Sign in with the account on the list.`))}
+        else{syncState='Offline';toast('Can’t reach the server')}
+      });
+    });
+  }catch(e){document.getElementById('main').innerHTML=`<div class="signin"><h1>Can’t load</h1><div style="color:var(--sec)">Check your connection and reload.</div></div>`}
+}
+if(mode==='cloud')initCloud();
+else{plan=loadLocal()||structuredClone(SEED);cur=todayIdx();render()}
+</script>
+</body>
+</html>
