@@ -129,6 +129,7 @@ h2.sect small{font-size:15px;font-weight:400;color:var(--sec)}
 .group{background:var(--card);border-radius:12px;overflow:hidden;margin:0 0 20px}
 .glabel{font-size:13px;color:var(--sec);text-transform:uppercase;letter-spacing:.02em;margin:0 16px 6px}
 .field{display:flex;align-items:center;gap:12px;padding:0 16px;min-height:46px;position:relative}
+.field[hidden]{display:none!important}
 .field+.field::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
 .field label{flex:none;min-width:96px}
 .field input,.field select{flex:1;min-width:0;border:0;background:transparent;text-align:right;outline:none;height:44px;font-size:17px;color:var(--sec)}
@@ -225,10 +226,12 @@ function num(n){return n==null?'':(Math.round(n*10)/10).toString()}
 function uid(){return 'w'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function todayIdx(){const ws=plan.weeks;for(let i=0;i<ws.length;i++){const s=parseD(ws[i].start);if(TODAY>=s&&TODAY<addDays(s,7))return i}return TODAY<parseD(ws[0].start)?0:ws.length-1}
 function restack(){const s=parseD(plan.weeks[0].start);plan.weeks.forEach((w,i)=>{w.start=iso(addDays(s,7*i))})}
-function logged(x){return x.actualMi!=null?x.actualMi:(x.status==='done'&&x.planMi?x.planMi:0)}
+function unitOf(x){return x.type==='strength'?null:x.type==='cross'?(x.unit==='m'?'m':'yd'):'mi'}
+const UNIT_NAME={mi:'Miles',yd:'Yards',m:'Meters'};
+function logged(x){if(unitOf(x)!=='mi')return 0;return x.actualMi!=null?x.actualMi:(x.status==='done'&&x.planMi?x.planMi:0)}
 function stats(w){
   const ws=w.workouts, s={total:ws.length,done:0,partial:0,skipped:0,planMi:0,logged:0};
-  ws.forEach(x=>{if(x.status==='done')s.done++;if(x.status==='partial')s.partial++;if(x.status==='skipped')s.skipped++;s.planMi+=x.planMi||0;s.logged+=logged(x)});
+  ws.forEach(x=>{if(x.status==='done')s.done++;if(x.status==='partial')s.partial++;if(x.status==='skipped')s.skipped++;if(unitOf(x)==='mi')s.planMi+=x.planMi||0;s.logged+=logged(x)});
   s.goal=w.target!=null?w.target:(s.planMi||null);return s;
 }
 function findW(id){for(const w of plan.weeks){const x=w.workouts.find(o=>o.id===id);if(x)return {w,x}}return null}
@@ -254,13 +257,14 @@ function bar(label,col,val,goal,unit){
 }
 function row(x){
   const t=TYPES[x.type]||TYPES.other, bits=[];
-  if(x.planMi)bits.push(`${num(x.planMi)} mi`);
+  const u=unitOf(x);
+  if(x.planMi&&u)bits.push(`${num(x.planMi)} ${u}`);
   if(x.detail)bits.push(esc(x.detail));
   if(x.title!==t.label&&x.type!=='race'&&!x.detail&&!x.planMi)bits.push(t.label);
   let sub=bits.map((b,i)=>`<span class="${i?'dot':''}">${b}</span>`).join('');
   if(x.day!=null)sub+=`<span class="chip">${DAYS[x.day]}</span>`;
   if(x.status==='partial'||x.status==='skipped')sub+=`<span class="chip ${x.status}">${STATUS[x.status]}</span>`;
-  if(x.actualMi!=null)sub+=`<span class="chip">${num(x.actualMi)} mi logged</span>`;
+  if(x.actualMi!=null&&u)sub+=`<span class="chip">${num(x.actualMi)} ${u} logged</span>`;
   if(x.note)sub+=`<span class="chip">Note</span>`;
   return `<div class="row ${x.status}" data-act="open" data-id="${x.id}">
     <span class="tile" style="--c:${t.c}">${svg(ICON[x.type]||ICON.other,2)}</span>
@@ -362,14 +366,15 @@ function workoutSheet(id){
   <div class="shdr"><button class="l" data-x="cancel">Cancel</button><h3>${isNew?'New workout':'Workout'}</h3><button class="r" data-x="save">${isNew?'Add':'Done'}</button></div>
   <div class="glabel">Status</div>
   <div class="group"><div class="field col">${seg('status',Object.entries(STATUS),d.status)}</div>
-    <div class="field"><label>Miles logged</label><input name="actualMi" inputmode="decimal" placeholder="${d.planMi?num(d.planMi):'0'}" value="${num(d.actualMi)}"></div></div>
+    <div class="field" data-dist><label data-ul="logged">Miles logged</label><input name="actualMi" inputmode="decimal" placeholder="${d.planMi?num(d.planMi):'0'}" value="${num(d.actualMi)}"></div></div>
   <div class="err" data-err hidden></div>
   <div class="glabel">Workout</div>
   <div class="group">
     <div class="field col"><label>Type</label><div class="types">${Object.entries(TYPES).map(([k,t])=>`<button type="button" data-type="${k}" style="--c:${t.c}" class="${k===d.type?'on':''}"><span class="tile" style="--c:${t.c}">${svg(ICON[k],2.2)}</span>${t.label}</button>`).join('')}</div></div>
     <div class="field"><label>Name</label><input name="title" value="${esc(d.title)}" placeholder="Easy run"></div>
     <div class="field"><label>Details</label><input name="detail" value="${esc(d.detail)}" placeholder="Optional"></div>
-    <div class="field"><label>Planned miles</label><input name="planMi" inputmode="decimal" value="${num(d.planMi)}" placeholder="None"></div>
+    <div class="field col" data-swim><label>Distance unit</label>${seg('unit',[['yd','Yards'],['m','Meters']],d.unit==='m'?'m':'yd')}</div>
+    <div class="field" data-dist><label data-ul="planned">Planned miles</label><input name="planMi" inputmode="decimal" value="${num(d.planMi)}" placeholder="None"></div>
     <div class="field col"><label>Day</label>${seg('day',[['','Any'],...DAYS.map((x,i)=>[i,x[0]])],d.day??'')}</div>
     <div class="field"><label>Week</label><select name="week">${weekOpts}</select></div>
   </div>
@@ -381,15 +386,18 @@ function workoutSheet(id){
     bindSeg(sh,'status',v=>d.status=v);
     bindSeg(sh,'day',v=>d.day=v===''?null:Number(v));
     q('title').addEventListener('input',()=>autoTitle=false);
-    sh.querySelector('.types').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;d.type=b.dataset.type;sh.querySelectorAll('.types button').forEach(x=>x.classList.toggle('on',x===b));if(autoTitle)q('title').value=TYPES[d.type].label});
+    sh.querySelector('.types').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;d.type=b.dataset.type;sh.querySelectorAll('.types button').forEach(x=>x.classList.toggle('on',x===b));if(autoTitle)q('title').value=TYPES[d.type].label;sync()});
     q('week').addEventListener('change',e=>target=Number(e.target.value));
+    const sync=()=>{const u=unitOf(d);sh.querySelectorAll('[data-dist]').forEach(el=>el.hidden=!u);sh.querySelector('[data-swim]').hidden=d.type!=='cross';
+      if(u){const n=UNIT_NAME[u];sh.querySelector('[data-ul=logged]').textContent=n+' logged';sh.querySelector('[data-ul=planned]').textContent='Planned '+n.toLowerCase()}};
+    bindSeg(sh,'unit',v=>{d.unit=v;sync()});sync();
     sh.addEventListener('click',e=>{
       const x=e.target.closest('[data-x]');if(!x)return;
       if(x.dataset.x==='cancel')return closeSheet();
       if(x.dataset.x==='del'){if(confirm('Delete this workout?')){const cf=findW(id);if(cf)cf.w.workouts=cf.w.workouts.filter(o=>o.id!==id);closeSheet();save()}return}
       const a=parseMi(q('actualMi').value),p=parseMi(q('planMi').value),err=sh.querySelector('[data-err]');
-      if(!a.ok||!p.ok){err.textContent='Miles need to be a number, like 6 or 6.5.';err.hidden=false;return}
-      Object.assign(d,{actualMi:a.v,planMi:p.v,title:q('title').value.trim()||TYPES[d.type].label,detail:q('detail').value.trim(),note:q('note').value.trim()});
+      if(!a.ok||!p.ok){err.textContent='Distance needs to be a number, like 6 or 6.5.';err.hidden=false;return}
+      Object.assign(d,unitOf(d)?{actualMi:a.v,planMi:p.v}:{actualMi:null,planMi:null},{title:q('title').value.trim()||TYPES[d.type].label,detail:q('detail').value.trim(),note:q('note').value.trim()});
       const cf=isNew?null:findW(id), dest=plan.weeks[target];
       if(!isNew&&!cf){closeSheet();toast('That workout changed on another device');return}
       if(cf&&cf.w===dest){cf.w.workouts[cf.w.workouts.indexOf(cf.x)]=d}
@@ -459,10 +467,10 @@ function settingsSheet(){
 }
 function exportCSV(){
   const q=v=>{v=v==null?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
-  const out=[['Week','Start','Phase','Race','Target miles','Week note','Workout','Type','Details','Planned miles','Day','Status','Miles logged','Note']];
+  const out=[['Week','Start','Phase','Race','Target miles','Week note','Workout','Type','Details','Planned distance','Unit','Day','Status','Distance logged','Note']];
   plan.weeks.forEach((w,i)=>{const base=[i+1,w.start,w.phase,w.race,w.target,w.note];
-    if(!w.workouts.length)out.push([...base,'','','','','','','','']);
-    w.workouts.forEach(x=>out.push([...base,x.title,(TYPES[x.type]||TYPES.other).label,x.detail,x.planMi,x.day!=null?DAYS[x.day]:'',STATUS[x.status],x.actualMi,x.note]))});
+    if(!w.workouts.length)out.push([...base,'','','','','','','','','']);
+    w.workouts.forEach(x=>out.push([...base,x.title,(TYPES[x.type]||TYPES.other).label,x.detail,x.planMi,unitOf(x)||'',x.day!=null?DAYS[x.day]:'',STATUS[x.status],x.actualMi,x.note]))});
   const blob=new Blob([out.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`training-2027-${iso(TODAY)}.csv`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
