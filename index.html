@@ -13,8 +13,8 @@
 <link rel="icon" href="icon.png">
 <title>Training 2027</title>
 <style>
-:root{--bg:#F2F2F7;--card:#FFFFFF;--card2:#F2F2F7;--text:#000;--sec:rgba(60,60,67,.6);--ter:rgba(60,60,67,.3);--sep:rgba(60,60,67,.16);--fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.2);--tint:#007AFF;--green:#34C759;--red:#FF3B30;--orange:#FF9500;--indigo:#5856D6;--cyan:#32ADE6;--pink:#FF2D55;--purple:#AF52DE;--teal:#30B0C7;--brown:#A2845E;--blue:#007AFF;--bar:rgba(249,249,249,.82);--shadow:0 1px 2px rgba(0,0,0,.06);--ring1:#FF2D55;--ring2:#30D158;color-scheme:light dark}
-@media (prefers-color-scheme:dark){:root{--bg:#000;--card:#1C1C1E;--card2:#2C2C2E;--text:#fff;--sec:rgba(235,235,245,.6);--ter:rgba(235,235,245,.3);--sep:rgba(84,84,88,.55);--fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.36);--tint:#0A84FF;--green:#30D158;--red:#FF453A;--orange:#FF9F0A;--indigo:#5E5CE6;--cyan:#64D2FF;--pink:#FF375F;--purple:#BF5AF2;--teal:#40CBE0;--brown:#AC8E68;--blue:#0A84FF;--bar:rgba(22,22,24,.78);--shadow:none;--ring1:#FF375F;--ring2:#30D158}}
+:root{--bg:#F2F2F7;--card:#FFFFFF;--card2:#F2F2F7;--text:#000;--sec:rgba(60,60,67,.6);--ter:rgba(60,60,67,.3);--sep:rgba(60,60,67,.16);--fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.2);--tint:#007AFF;--green:#34C759;--red:#FF3B30;--orange:#FF9500;--indigo:#5856D6;--cyan:#32ADE6;--pink:#FF2D55;--purple:#AF52DE;--teal:#30B0C7;--brown:#A2845E;--blue:#007AFF;--bar:rgba(249,249,249,.82);--shadow:0 1px 2px rgba(0,0,0,.06);--ring1:#5856D6;--ring2:#34C759;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#000;--card:#1C1C1E;--card2:#2C2C2E;--text:#fff;--sec:rgba(235,235,245,.6);--ter:rgba(235,235,245,.3);--sep:rgba(84,84,88,.55);--fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.36);--tint:#0A84FF;--green:#30D158;--red:#FF453A;--orange:#FF9F0A;--indigo:#5E5CE6;--cyan:#64D2FF;--pink:#FF375F;--purple:#BF5AF2;--teal:#40CBE0;--brown:#AC8E68;--blue:#0A84FF;--bar:rgba(22,22,24,.78);--shadow:none;--ring1:#5E5CE6;--ring2:#30D158}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--text)}
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif;font-size:17px;line-height:1.3;-webkit-font-smoothing:antialiased;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
@@ -34,13 +34,17 @@ h2.sect small{font-size:15px;font-weight:400;color:var(--sec)}
 .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow)}
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--c,var(--red)) 15%,transparent);color:var(--c,var(--red));margin-top:6px}
 .badge svg{width:14px;height:14px}
-.ringcard{display:flex;align-items:center;gap:20px;padding:18px 20px;margin-top:16px}
-.ringcard svg.rings{width:116px;height:116px;flex:none}
-.ringstats{display:grid;gap:12px;min-width:0}
-.ringstats .lbl{font-size:15px;font-weight:600}
-.ringstats .num{font-size:30px;font-weight:700;letter-spacing:-.01em;line-height:1.05}
-.ringstats .num small{font-size:17px;font-weight:600;color:var(--sec);margin-left:2px}
-.ring-arc{transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
+.progcard{padding:18px 20px 20px;margin-top:16px;display:grid;gap:20px}
+.phead{display:flex;justify-content:space-between;align-items:baseline}
+.phead .lbl{font-size:15px;font-weight:600;color:var(--c)}
+.pnum{font-size:26px;font-weight:700;letter-spacing:-.01em;line-height:1}
+.pnum small{font-size:15px;font-weight:600;color:var(--sec);margin-left:2px}
+.ptrack{position:relative;height:10px;border-radius:5px;background:color-mix(in srgb,var(--c) 16%,transparent);margin-top:30px}
+.ptrack b{display:block;height:100%;width:calc(var(--f)*100%);min-width:10px;border-radius:5px;background:var(--c);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.ptrack.zero b{min-width:0}
+.shoe{position:absolute;bottom:9px;left:calc((100% - 32px)*var(--f));width:32px;height:24px;color:var(--c);transition:left .6s cubic-bezier(.2,.8,.2,1)}
+.shoe svg{width:32px;height:24px;display:block}
+.pfoot{display:flex;justify-content:space-between;font-size:13px;color:var(--sec);margin-top:6px}
 .note{padding:14px 16px;margin-top:12px;font-size:15px;color:var(--sec);white-space:pre-wrap}
 .list{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
 .row{display:flex;align-items:center;gap:12px;padding:11px 14px 11px 14px;min-height:60px;position:relative;cursor:pointer}
@@ -183,6 +187,7 @@ const ICON = {
   race:'<path d="M5.5 21V4M5.5 4.5h12l-2.5 4 2.5 4h-12"/>',
   other:'<circle cx="12" cy="12" r="3.5"/>'
 };
+const SHOE='<svg viewBox="0 0 32 24" aria-hidden="true"><path fill="currentColor" d="M3.2 6.5h5.3c.9 2.6 3 3.9 5.8 3.6l2.6 2.3c4.6.3 9.6 1.4 11.6 4 .9 1.2.3 3.1-1.4 3.1H4.4c-1.6 0-2.7-1.2-2.6-2.8z"/><path fill="none" stroke="var(--card)" stroke-width="1.4" stroke-linecap="round" d="M2.4 16.4h26.4M10.6 11.2l1.4-1.8M13.4 12.4l1.5-1.8M16.4 13.4l1.4-1.6"/></svg>';
 const UI = {
   left:'<path d="M15 5l-7 7 7 7"/>', right:'<path d="M9 5l7 7-7 7"/>',
   gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
@@ -241,10 +246,11 @@ async function writeRemote(){
 }
 
 /* ---------- rendering ---------- */
-function rings(a,b,hasB){
-  const R1=50,R2=33,C1=2*Math.PI*R1,C2=2*Math.PI*R2,cl=v=>Math.max(0,Math.min(1,v||0));
-  const arc=(r,C,p,col)=>`<circle cx="58" cy="58" r="${r}" fill="none" stroke="${col}" stroke-opacity=".2" stroke-width="14"/><circle class="ring-arc" cx="58" cy="58" r="${r}" fill="none" stroke="${col}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-cl(p))}" transform="rotate(-90 58 58)" ${p>0?'':'stroke-opacity="0"'}/>`;
-  return `<svg class="rings" viewBox="0 0 116 116" role="img" aria-label="Progress rings">${arc(R1,C1,a,'var(--ring1)')}${hasB?arc(R2,C2,b,'var(--ring2)'):''}</svg>`;
+function bar(label,col,val,goal,unit){
+  const f=goal?Math.max(0,Math.min(1,val/goal)):0, pct=Math.round(f*100);
+  return `<div style="--c:${col};--f:${f}"><div class="phead"><span class="lbl">${label}</span><span class="pnum round">${num(val)}<small>/${num(goal)}${unit}</small></span></div>
+  <div class="ptrack${f?'':' zero'}" role="progressbar" aria-label="${label}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><b></b><span class="shoe">${SHOE}</span></div>
+  <div class="pfoot"><span>${pct}%</span><span>${f>=1?'Complete':`${num(Math.max(0,goal-val))}${unit} to go`}</span></div></div>`;
 }
 function row(x){
   const t=TYPES[x.type]||TYPES.other, bits=[];
@@ -274,12 +280,7 @@ function renderWeek(){
   <h1>${esc(w.phase||'Week '+(cur+1))}</h1>
   ${w.race?`<span class="badge" style="--c:var(--red)">${svg(ICON.race,2.2)}${esc(w.race)}</span>`:''}
   ${mode==='local'?`<div class="banner" style="margin-top:12px">${svg(UI.cloud,1.8).replace('<svg','<svg style="width:16px;height:16px;flex:none"')}Preview mode · changes save on this device only</div>`:''}
-  ${s.total?`<section class="card ringcard">
-    ${rings(s.total?s.done/s.total:0,hasMi?s.logged/s.goal:0,hasMi)}
-    <div class="ringstats">
-      <div><div class="lbl" style="color:var(--ring1)">Workouts</div><div class="num round">${s.done}<small>/${s.total}</small></div></div>
-      ${hasMi?`<div><div class="lbl" style="color:var(--ring2)">Miles</div><div class="num round">${num(s.logged)}<small>/${num(s.goal)}</small></div></div>`:''}
-    </div></section>`:''}
+  ${s.total?`<section class="card progcard">${bar('Workouts','var(--ring1)',s.done,s.total,'')}${hasMi?bar('Miles','var(--ring2)',s.logged,s.goal,' mi'):''}</section>`:''}
   ${w.note?`<div class="card note">${esc(w.note)}</div>`:''}
   ${s.total?`<h2 class="sect">Workouts <small>${s.total-s.done-s.skipped>0?(s.total-s.done-s.skipped)+' to go':'All wrapped up'}</small></h2><div class="list">${list}</div>`
    :`<div class="card empty" style="margin-top:16px">${svg(UI.moon,1.6)}<div style="font-weight:600;color:var(--text)">No workouts planned</div><div style="font-size:15px;margin-top:4px">Add one if anything changes.</div></div>`}
@@ -489,7 +490,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 function signInView(msg){
   document.getElementById('tabbar').hidden=true;
   document.getElementById('main').innerHTML=`<div class="signin">
-    <svg viewBox="0 0 116 116" style="width:84px;height:84px">${rings(.72,.5,true).replace(/<\/?svg[^>]*>/g,'')}</svg>
+    <div style="width:84px;height:84px;border-radius:20px;background:var(--ring1);color:#fff;display:flex;align-items:center;justify-content:center"><span style="width:56px;--card:var(--ring1)">${SHOE.replace('viewBox','style="width:56px;height:42px;display:block" viewBox')}</span></div>
     <h1 style="margin-top:12px">Training 2027</h1><div style="color:var(--sec)">Sign in to see the plan.</div>
     <button class="gbtn" data-signin>${svg('<path d="M20.5 12.2c0-.6 0-1.2-.2-1.8H12v3.4h4.8a4.1 4.1 0 0 1-1.8 2.7v2.2h2.9c1.7-1.6 2.6-3.9 2.6-6.5zM12 21c2.4 0 4.5-.8 5.9-2.2l-2.9-2.2c-.8.5-1.8.9-3 .9-2.3 0-4.3-1.6-5-3.7H4v2.3A9 9 0 0 0 12 21zM7 13.8a5.4 5.4 0 0 1 0-3.5V8H4a9 9 0 0 0 0 8.1zM12 6.6c1.3 0 2.5.5 3.4 1.3L18 5.4A9 9 0 0 0 4 8l3 2.3c.7-2.1 2.7-3.7 5-3.7z"/>',0).replace('fill="none"','fill="currentColor"').replace('style','')}Sign in with Google</button>
     ${msg?`<div style="color:var(--red);font-size:14px;max-width:300px;margin-top:10px">${esc(msg)}</div>`:''}</div>`;
